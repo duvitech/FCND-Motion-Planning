@@ -2,7 +2,6 @@ from enum import Enum
 from queue import PriorityQueue
 import numpy as np
 
-
 def create_grid(data, drone_altitude, safety_distance):
     """
     Returns a grid representation of a 2D configuration space

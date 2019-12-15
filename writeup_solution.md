@@ -36,16 +36,22 @@ The A-star search algorithm uses a heuristic that is admissible and consistent, 
 #### 1. Set your global home position
 Here students should read the first line of the csv file, extract lat0 and lon0 as floating point values and use the self.set_home_position() method to set global home. Explain briefly how you accomplished this in your code.
 
+The Drone API provides a set_home_position method to set the home position as noted above, whcih I use to set the global home position using a function get_global_home that takes in the csv file as an argument.  The function extracts lat0 and lon0 as floating points and returns a numpy array of the gloabl home position:
 
-And here is a lovely picture of our downtown San Francisco environment from above!
-![Map of SF](./misc/map.png)
+```
+def get_global_home(filename):
+    with open(filename) as f:
+        lat, lon = [float(x.replace("lat0 ", "").replace("lon0 ", "")) for x in f.readline().split(',')]
+        global_home = np.array([lon, lat, 0.0])
+    return global_home
+```
+
+```
+self.set_home_position(global_home[0], global_home[1], global_home[2])
+```
 
 #### 2. Set your current local position
-Here as long as you successfully determine your local position relative to global home you'll be all set. Explain briefly how you accomplished this in your code.
-
-
-Meanwhile, here's a picture of me flying through the trees!
-![Forest Flying](./misc/in_the_trees.png)
+Here as long as you successfully determine your local position relative to global home you'll be all set. Explain briefly how you accomplished this in your code. 
 
 #### 3. Set grid start position from local position
 This is another step in adding flexibility to the start location. As long as it works you're good to go!
