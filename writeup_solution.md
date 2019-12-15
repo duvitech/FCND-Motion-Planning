@@ -27,19 +27,9 @@ You're reading it! Below I describe how I addressed each rubric point and where 
 ### Explain the Starter Code
 
 #### 1. Explain the functionality of what's provided in `motion_planning.py` and `planning_utils.py`
-These scripts contain a basic planning implementation that includes a state machine similar to the one used in the Backyard Flyer project. Once the Arming State is achieved, we enter a new state that did not exist in the Backyard Flyer called planning where a flight plan is created using the A-star algorithm.  In the Backyard Flyer we provided a static list of waypoints for the drone to follow, in this implementation a destination is selected 10 meters north by 10 meters east of the drone's starting coordinates and the planning stage creates a waypoint list using the A-star algorithm to find the best path for the drone to follow to get to it's destination.  Once the planning is completed the state machine will transition to takeoff and function like the Backyard Flyer code. motion_planning.py handles the state machine and transitions between states while the planning_utils.py provides the functions for the A-star algorithm, actions and valid actions check.
+These scripts contain a basic planning implementation that includes a state machine similar to the one used in the Backyard Flyer project. Once the Arming State is achieved, we enter a new state that did not exist in the Backyard Flyer called the planning state where a flight plan is created using the A-star algorithm.  In the Backyard Flyer we provided a static list of waypoints for the drone to follow, in this implementation a goal state is selected 10 meters north by 10 meters east of the drone's start state and the planning stage creates a waypoint list using the A-star algorithm to find the best path for the drone to follow to achieve it's goal state.  Once the planning is completed the state machine will transition to takeoff and function much like the Backyard Flyer code following it's path to achieve the goal state. motion_planning.py handles the state machine and transitions between states while the planning_utils.py provides the functions for the A-star algorithm, actions and valid actions check.
 
-The A-star search algorithm
-
-And here's a lovely image of my results (ok this image has nothing to do with it, but it's a nice example of how to include images in your writeup!)
-![Top Down View](./misc/high_up.png)
-
-Here's | A | Snappy | Table
---- | --- | --- | ---
-1 | `highlight` | **bold** | 7.41
-2 | a | b | c
-3 | *italic* | text | 403
-4 | 2 | 3 | abcd
+The A-star search algorithm uses a heuristic that is admissible and consistent, the heuristic used is the euclidean distance algorithm, implemented using numpy L2Norm of the vectors difference, for finding the path with the lowest cost from start to goal.  These waypoints are used to create the flight plan for the drone.  The A-star algorithm utilizes the actions and valid actions functions to determine the valid actions available for extending the partial plan and the costs associated with that action.
 
 ### Implementing Your Path Planning Algorithm
 
