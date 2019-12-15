@@ -113,4 +113,3 @@ def a_star(grid, h, start, goal):
         print('**********************') 
     return path[::-1], path_cost
 
-
