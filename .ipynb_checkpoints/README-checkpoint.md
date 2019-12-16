@@ -30,7 +30,7 @@ You're reading it! Below I describe how I addressed each rubric point and where 
 ### Explain the Starter Code
 
 #### 1. Explain the functionality of what's provided in `motion_planning.py` and `planning_utils.py`
-I went through and created a notebook [motion_planning_solution.ipynb]FCND-Motion-Planning/motion_planning_solution.ipynb for the motion_planning.py starter python. My Notebook along with the [planning_utils.py]FCND-Motion-Planning/planning_utils.py script contains a basic planning implementation that includes a state machine similar to the one used in the Backyard Flyer project. Once the Arming State is achieved, we enter a new state that did not exist in the Backyard Flyer called the planning state where a flight plan is created using the A-star algorithm.  In the Backyard Flyer we provided a static list of waypoints for the drone to follow, in this implementation a goal state is selected 10 meters north by 10 meters east of the drone's start state and the planning stage creates a waypoint list using the A-star algorithm to find the best path for the drone to follow to achieve it's goal state.  Once the planning is completed the state machine will transition to takeoff and function much like the Backyard Flyer code following it's path to achieve the goal state. [motion_planning_solution.ipynb]FCND-Motion-Planning/motion_planning_solution.ipynb handles the state machine and transitions between states while the [planning_utils.py]FCND-Motion-Planning/planning_utils.py provides the functions for the A-star algorithm, actions and valid actions check.
+I went through and created a notebook [motion_planning_solution.ipynb](motion_planning_solution.ipynb) for the motion_planning.py starter python. My Notebook along with the [planning_utils.py](/planning_utils.py) script contains a basic planning implementation that includes a state machine similar to the one used in the Backyard Flyer project. Once the Arming State is achieved, we enter a new state that did not exist in the Backyard Flyer called the planning state where a flight plan is created using the A-star algorithm.  In the Backyard Flyer we provided a static list of waypoints for the drone to follow, in this implementation a goal state is selected 10 meters north by 10 meters east of the drone's start state and the planning stage creates a waypoint list using the A-star algorithm to find the best path for the drone to follow to achieve it's goal state.  Once the planning is completed the state machine will transition to takeoff and function much like the Backyard Flyer code following it's path to achieve the goal state. [motion_planning_solution.ipynb](motion_planning_solution.ipynb) handles the state machine and transitions between states while the [planning_utils.py](planning_utils.py) provides the functions for the A-star algorithm, actions and valid actions check.
 
 The A-star search algorithm uses a heuristic that is admissible and consistent, the heuristic used is the euclidean distance algorithm, implemented using numpy L2Norm of the vectors difference, for finding the path with the lowest cost from start to goal.  These waypoints are used to create the flight plan for the drone.  The A-star algorithm utilizes the actions and valid actions functions to determine the valid actions available for extending the partial plan and the costs associated with that action.
 
@@ -74,10 +74,10 @@ grid_goal = (int(goal_pos[0]-north_offset), int(goal_pos[1]-east_offset))
         
 ```
 
-I added visualization plots of the grid with the start and end locations, as well as plotting the path once found.  The plotting was included in a function called plot_map which can be found in the [motion_planning_solution.ipynb]FCND-Motion-Planning/motion_planning_solution.ipynb notebook.
+I added visualization plots of the grid with the start and end locations, as well as plotting the path once found.  The plotting was included in a function called plot_map which can be found in the [motion_planning_solution.ipynb](motion_planning_solution.ipynb) notebook.
 
 #### 5. Modify A* to include diagonal motion (or replace A* altogether)
-I modified Actions in [planning_utils.py]FCND-Motion-Planning/planning_utils.py to include diaganal movement, with their associated cost.  
+I modified Actions in [planning_utils.py](planning_utils.py) to include diaganal movement, with their associated cost.  
 
 ```
 
@@ -106,7 +106,7 @@ To allow this to work I also needed to modify the valid_actions to allow diagano
 With these two modifications the drone is able to move in diagonal directions when the A* algorithm searches for a path.
 
 #### 6. Cull waypoints 
-I used the collinearity method for culling the waypoints.  Three functions where added to [planning_utils.py](FCND-Motion-Planning/planning_utils.py), importing prune_path function to perform the culling of the waypoints and returning a more optimized path for the drone to travel.
+I used the collinearity method for culling the waypoints.  Three functions where added to [planning_utils.py](planning_utils.py), importing prune_path function to perform the culling of the waypoints and returning a more optimized path for the drone to travel.
 
 
 ### Execute the flight
