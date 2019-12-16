@@ -106,7 +106,7 @@ To allow this to work I also needed to modify the valid_actions to allow diagano
 With these two modifications the drone is able to move in diagonal directions when the A* algorithm searches for a path.
 
 #### 6. Cull waypoints 
-I used the collinearity method for culling the waypoints.  Three functions where added to [planning_utils.py]FCND-Motion-Planning/planning_utils.py, importing prune_path function to perform the culling of the waypoints and returning a more optimized path for the drone to travel.
+I used the collinearity method for culling the waypoints.  Three functions where added to [planning_utils.py](FCND-Motion-Planning/planning_utils.py), importing prune_path function to perform the culling of the waypoints and returning a more optimized path for the drone to travel.
 
 
 ### Execute the flight
