@@ -54,6 +54,10 @@ class Action(Enum):
     EAST = (0, 1, 1)
     NORTH = (-1, 0, 1)
     SOUTH = (1, 0, 1)
+    NORTH_WEST = (-1, -1, 0, np.sqrt(2))
+    NORTH_EAST = (-1, 1, 0, np.sqrt(2))
+    SOUTH_WEST = (1, -1, 0, np.sqrt(2))
+    SOUTH_EAST = (1, 1, 0, np.sqrt(2))
 
     @property
     def cost(self):
@@ -84,6 +88,14 @@ def valid_actions(grid, current_node):
     if y + 1 > m or grid[x, y + 1] == 1:
         valid_actions.remove(Action.EAST)
 
+    if x - 1 < 0 or y - 1 < 0 or grid[x - 1, y - 1] == 1:
+        valid_actions.remove(Action.NORTH_WEST)
+    if x - 1 < 0 or y + 1 > m or grid[x - 1, y + 1] == 1:
+        valid_actions.remove(Action.NORTH_EAST)
+    if x + 1 > n or y - 1 < 0 or grid[x + 1, y - 1] == 1:
+        valid_actions.remove(Action.SOUTH_WEST)
+    if x + 1 > n or y + 1 > m or grid[x + 1, y + 1] == 1:
+        valid_actions.remove(Action.SOUTH_EAST)
     return valid_actions
 
 
@@ -132,6 +144,7 @@ def a_star(grid, h, start, goal):
             path.append(branch[n][1])
             n = branch[n][1]
         path.append(branch[n][1])
+        print('Found path!')
     else:
         print('**********************')
         print('Failed to find a path!')

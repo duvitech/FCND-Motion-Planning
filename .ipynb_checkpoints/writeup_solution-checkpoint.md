@@ -46,15 +46,19 @@ def get_global_home(filename):
     return global_home
 ```
 
+#### 2. Set your current local position
+The Drone API provided set_home_position method is used to set the drones current local position.
+
 ```
 self.set_home_position(global_home[0], global_home[1], global_home[2])
 ```
 
-#### 2. Set your current local position
-Here as long as you successfully determine your local position relative to global home you'll be all set. Explain briefly how you accomplished this in your code. 
-
 #### 3. Set grid start position from local position
-This is another step in adding flexibility to the start location. As long as it works you're good to go!
+The udacidrone.frame_utils contains a global_to_local method which I used to calculate the north-east-down coordinates from the global position using global_home position as a reference point.
+
+```
+current_local_pos = global_to_local(self.global_position, global_home)
+```
 
 #### 4. Set grid goal position from geodetic coords
 This step is to add flexibility to the desired goal location. Should be able to choose any (lat, lon) within the map and have it rendered to a goal location on the grid.
