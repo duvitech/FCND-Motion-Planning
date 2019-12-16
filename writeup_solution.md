@@ -3,6 +3,9 @@
 
 ---
 
+[//]: # (Image References)
+
+[image1]: ./images/path.png "Visualization"
 
 # Required Steps for a Passing Submission:
 1. Load the 2.5D map in the colliders.csv file describing the environment.
@@ -71,6 +74,8 @@ grid_goal = (int(goal_pos[0]-north_offset), int(goal_pos[1]-east_offset))
         
 ```
 
+I added visualization plots of the grid with the start and end locations, as well as plotting the path once found.  The plotting was included in a function called plot_map which can be found in the motion_planning_solution notebook.
+
 #### 5. Modify A* to include diagonal motion (or replace A* altogether)
 I modified Actions in planning_utils.py to include diaganal movement, with their associated cost.  
 
@@ -107,6 +112,9 @@ I used the collinearity method for culling the waypoints.  Three functions where
 ### Execute the flight
 #### 1. Does it work?
 It works!
+Everything seems to work pretty good.
+
+![alt text][image1]
 
 ### Double check that you've met specifications for each of the [rubric](https://review.udacity.com/#!/rubrics/1534/view) points.
   

@@ -74,8 +74,6 @@ grid_goal = (int(goal_pos[0]-north_offset), int(goal_pos[1]-east_offset))
         
 ```
 
-I added visualization plots of the grid with the start and end locations, as well as plotting the path once found.  The plotting was included in a function called plot_map which can be found in the motion_planning_solution notebook.
-
 #### 5. Modify A* to include diagonal motion (or replace A* altogether)
 I modified Actions in planning_utils.py to include diaganal movement, with their associated cost.  
 
