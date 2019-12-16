@@ -61,14 +61,47 @@ current_local_pos = global_to_local(self.global_position, global_home)
 ```
 
 #### 4. Set grid goal position from geodetic coords
-This step is to add flexibility to the desired goal location. Should be able to choose any (lat, lon) within the map and have it rendered to a goal location on the grid.
+Setting the GLOBAL_GOAL vector with longitude and latitude location will be convert to local location by applying the global_to_local function and then subtracting the north and east offsets.  The grid_goal will be set from the converted geodetic coords.
+
+```
+GLOBAL_GOAL = (-122.397336, 37.793836) 
+
+goal_pos = global_to_local([GLOBAL_GOAL[0], GLOBAL_GOAL[1], self._altitude], self.global_home)
+grid_goal = (int(goal_pos[0]-north_offset), int(goal_pos[1]-east_offset))
+        
+```
 
 #### 5. Modify A* to include diagonal motion (or replace A* altogether)
-Minimal requirement here is to modify the code in planning_utils() to update the A* implementation to include diagonal motions on the grid that have a cost of sqrt(2), but more creative solutions are welcome. Explain the code you used to accomplish this step.
+I modified Actions in planning_utils.py to include diaganal movement, with their associated cost.  
+
+```
+
+    NORTH_WEST = (-1, -1, np.sqrt(2))
+    NORTH_EAST = (-1, 1, np.sqrt(2))
+    SOUTH_WEST = (1, -1, np.sqrt(2))
+    SOUTH_EAST = (1, 1, np.sqrt(2))
+
+```
+
+To allow this to work I also needed to modify the valid_actions to allow diaganol movement.
+
+```
+
+    if (x - 1 < 0 or y - 1 < 0) or grid[x - 1, y - 1] == 1:
+        valid_actions.remove(Action.NORTH_WEST)
+    if (x - 1 < 0 or y + 1 > m) or grid[x - 1, y + 1] == 1:
+        valid_actions.remove(Action.NORTH_EAST)
+    if (x + 1 > n or y - 1 < 0) or grid[x + 1, y - 1] == 1:
+        valid_actions.remove(Action.SOUTH_WEST)
+    if (x + 1 > n or y + 1 > m) or grid[x + 1, y + 1] == 1:
+        valid_actions.remove(Action.SOUTH_EAST)
+
+```
+
+With these two modifications the drone is able to move in diagonal directions when the A* algorithm searches for a path.
 
 #### 6. Cull waypoints 
-For this step you can use a collinearity test or ray tracing method like Bresenham. The idea is simply to prune your path of unnecessary waypoints. Explain the code you used to accomplish this step.
-
+I used the collinearity method for culling the waypoints.  Three functions where added to planning_utils.py, importing prune_path function to perform the culling of the waypoints and returning a more optimized path for the drone to travel.
 
 
 ### Execute the flight
